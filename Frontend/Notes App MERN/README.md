@@ -2,22 +2,25 @@
 
 ## Features
 
+- Login with validation
+- SignUp with validation
+- Search Features
+- Create Notes
+- Date with Note
+- Edit Notes
+- Delete Notes
+- Pin Notes
 - Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
 
 
 ## Tech Stack
-
-**Client:** React, Redux, TailwindCSS
-
-**Server:** Node, Express
+**Frontend:** React, tailwind, reactIcons etc
 
 
 ## Installation
 
-Install my-project with npm
+Install with npm -
+
 ### Frontend
 ```bash
   npm create vite@latest ./
@@ -25,6 +28,7 @@ Install my-project with npm
   npx tailwindcss init -p
   npm i react-router-dom
   npm i react-icons
+  npm i react-modal
 ```
 
 Add this to eslint file -
@@ -37,11 +41,10 @@ rules : {
 
 ## Peoject Guide / Project flow
 
-- 3 Pages `/dashboard` home page , `/login` login page and `/signup` page
-- Usign `react-router-dom` all route are added in App.jsx
-- 
+- Folder Structure define files hierarchy
+- Project flow define components hierarchy + utils used
 
 ##  Folder Structure
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![alt text](image-1.png)
 
