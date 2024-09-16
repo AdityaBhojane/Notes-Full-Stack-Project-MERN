@@ -4,20 +4,24 @@ import SearchBar from "../SearchBar/SearchBar";
 import { useState } from "react";
 
 
-function Navbar() {
+function Navbar({userInfo,searchRequest,handleClearSearch}) {
   const [searchQuery, setSearchQuery] = useState("");
 
   const navigate = useNavigate();
   const LogoutHandler =()=>{
+    localStorage.clear();
     navigate("/login");
   }
 
   const searchHandler =()=>{
-
+    if(searchQuery){
+      searchRequest(searchQuery);
+    }
   }
   
   const clearSearch =()=>{
     setSearchQuery('');
+    handleClearSearch();
   }
   
   return (
@@ -34,6 +38,7 @@ function Navbar() {
             />
             <Profile 
             LogoutHandler={LogoutHandler}
+            userInfo={userInfo}
             />
         </div>
     </>

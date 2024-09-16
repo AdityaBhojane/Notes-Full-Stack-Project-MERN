@@ -3,7 +3,7 @@ require("dotenv").config();
 const config = require("./config.json");
 const mongoose = require("mongoose");
 
-mongoose.connect(config.connectionString);
+mongoose.connect(process.env.DATABASE_URL);
 const User = require("./models/userModel");
 const Note = require("./models/notesModel");
 
@@ -12,7 +12,7 @@ const cors = require("cors");
 const app = express();
 
 const jwt = require("jsonwebtoken");
-const { authenticateToken, authenticationToken } = require("./utilities");
+const { authenticationToken } = require("./utilities");
 
 app.use(express.json());
 
@@ -84,23 +84,23 @@ app.post("/login", async (req, res) => {
   if (!req.body || Object.keys(req.body).length === 0) {
     return res.status(400).json({
       error: true,
-      message: "Please provide valid input",
+      msg: "Please provide valid input",
     });
   }
   const { email, password } = req.body;
 
   if (!email) {
-    return res.status(400).json({ message: "Email is required" });
+    return res.status(400).json({ msg: "Email is required" });
   }
 
   if (!password) {
-    return res.status(400).json({ message: "Password is required" });
+    return res.status(400).json({ msg: "Password is required" });
   }
 
   const userInfo = await User.findOne({ email: email });
 
   if (!userInfo) {
-    return res.status(400).json({ message: "User not found" });
+    return res.status(400).json({ msg: "User not found" });
   }
 
   // Additional logic for password validation would go here
@@ -112,14 +112,14 @@ app.post("/login", async (req, res) => {
 
     return res.json({
       error: false,
-      message: "Login Successful",
+      msg: "Login Successful",
       email,
       accessToken,
     });
   } else {
     return res.status(400).json({
       error: true,
-      message: "Invalid Credentials",
+      msg: "Invalid Credentials",
     });
   }
 });
@@ -147,7 +147,7 @@ app.post("/add-note", authenticationToken, async (req, res) => {
   if (!req.body || Object.keys(req.body).length === 0) {
     return res.status(400).json({
       error: true,
-      message: "Please provide valid input",
+      msg: "Please provide valid input",
     });
   }
   const { title, content, tags } = req.body;
@@ -287,6 +287,36 @@ app.delete("/delete-note/:noteId", authenticationToken, async (req, res) => {
     });
   }
 });
+
+app.get("/search-notes/", authenticationToken, async (req, res) => {
+  const { user } = req.user;
+  const { query } = req.query;
+
+  if (!query) {
+    return res
+      .status(400)
+      .json({ error: true, message: "Search query is required" });
+  }
+
+  try {
+    const matchingNotes = await Note.find({
+      userId: user._id,
+      $or: [
+        { title: { $regex: new RegExp(query, "i") } },
+        { content: { $regex: new RegExp(query, "i") } },
+      ],
+    });
+
+    return res.json({
+      error: false,
+      notes: matchingNotes,
+      message: "Notes matching the search query retrieved successfully",
+    });
+  } catch (err) {
+    res.status(500).json({ error: true, message: "Server error" });
+  }
+});
+
 
 app.listen(8000, () => console.log("running..."));
 

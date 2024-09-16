@@ -10,11 +10,11 @@ Modal.setAppElement('#root');
 
 function App() {
 
-
+//  console.log(import.meta.env.VITE_BASE_API_URL)
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home/>}></Route>
+        <Route path="/dashboard" element={<Home/>}></Route>
         <Route path="/login" element={<LogIn/>}></Route>
         <Route path="/signup" element={<SignUp/>}></Route>
       </Routes>
