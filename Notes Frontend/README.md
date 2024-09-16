@@ -16,6 +16,9 @@
 ## Tech Stack
 **Frontend:** React, tailwind, reactIcons etc
 
+```
+git config core.ignorecase false
+```
 
 ## Installation
 
