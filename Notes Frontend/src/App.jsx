@@ -5,14 +5,15 @@ import SignUp from "./pages/SignUp/SignUp";
 import Modal from 'react-modal';
 
 // Set the app element to the root element of your app
-Modal.setAppElement('#root');
+// Modal.setAppElement('#root');
 
 function App() {
   // Dynamically set the base path depending on the environment
-  const basePath = import.meta.env.VITE_NODE_ENV === 'production' ? '/login' : '/';
+  // const basePath = import.meta.env.VITE_NODE_ENV === 'production' ? '/login' : '/';
 
   return (
-    <Router basename={basePath}>
+    // <Router basename={basePath}>
+    <Router>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/dashboard" element={<Home />} />
