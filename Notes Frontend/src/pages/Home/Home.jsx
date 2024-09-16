@@ -7,7 +7,7 @@ import moment from "moment";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../../utils/axiosInstance";
-import TostMsg from "../../Components/Tostmsg/TostMsg";
+import TostMsg from "../../Components/TostMsg/TostMsg";
 import notFound from "../../assets/NotFound.svg";
 
 export default function Home() {
