@@ -325,6 +325,6 @@ app.get("/search-notes/", authenticationToken, async (req, res) => {
 });
 
 
-app.listen(8000, () => console.log("running..."));
+app.listen(8000, () => console.log("backend is running..."));
 
 module.exports = app;
