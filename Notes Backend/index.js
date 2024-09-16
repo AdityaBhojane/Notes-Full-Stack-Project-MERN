@@ -3,7 +3,7 @@ require("dotenv").config();
 const config = require("./config.json");
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.DATABASE_URL);
+mongoose.connect(process.env.DATABASE_URL).then(()=>console.log("db Connected"));
 const User = require("./models/userModel");
 const Note = require("./models/notesModel");
 
